@@ -14,14 +14,14 @@
     <div class="container"> 
         <div class="form-container"> 
             <h2>Login</h2> 
-            <form> 
+            <form action="{{ url_for('login') }}" method="POST"> 
                 <div class="form-control"> 
                     <label for="username">Username</label>
-                    <input type="text" id="username" required> 
+                    <input type="text" id="username" name="username" required> 
                 </div> 
                 <div class="form-control"> 
                     <label for="password">Senha</label> 
-                    <input type="password" id="password" required> 
+                    <input type="password" id="password" name="password" required> 
                 </div> 
                 <button type="submit" class="btn">Login</button> 
                 <a href="{{ url_for('register') }}" class="btn-link">Cadastrar</a>
