@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat P2P</title>
+</head>
+{% endblock %}
+
+{% block body %}
+<body>
+    <div class="chat-app">
+        <div class="chat-sidebar">
+            <div class="user">
+                <img src="user-avatar.png" alt="Avatar do Usuário">
+                <h3>Usuário 1</h3>
+            </div>
+            <div class="contacts">
+                <div class="contact">
+                    <img src="contact-avatar.png" alt="Avatar do Contato">
+                    <div class="contact-info">
+                        <h4>Contato 1</h4>
+                        <p>Última mensagem</p>
+                    </div>
+                </div>
+                <!-- Adicione mais contatos aqui -->
+            </div>
+        </div>
+        <div class="chat-main">
+            <header class="chat-header">
+                <h2>Contato 1</h2>
+            </header>
+            <main class="chat-messages">
+                <div class="message received">
+                    <p class="text">Oi, tudo bem?</p>
+                </div>
+                <div class="message sent">
+                    <p class="text">Tudo sim, e você?</p>
+                </div>
+                <!-- Adicione mais mensagens aqui -->
+            </main>
+            <div class="chat-form-container">
+                <form id="chat-form">
+                    <input id="msg" type="text" placeholder="Digite uma mensagem" required autocomplete="off">
+                    <button type="submit" class="btn">Enviar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

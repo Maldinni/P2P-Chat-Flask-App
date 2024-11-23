@@ -1,0 +1,19 @@
+{
+    "users": [
+        {
+            "user_id": 1,
+            "username": "Enzo",
+            "email": "enzo.maldinni@hotmail.com",
+            "password_hash": "hashedpassword",
+            "created_at": "2024-11-22T00:01:29.493814"
+        },
+        {
+            "user_id": 2,
+            "username": "Julio",
+            "email": "",
+            "password_hash": "hashedpassword",
+            "created_at": "2024-11-22T00:05:20.490792"
+        }
+    ],
+    "messages": []
+}

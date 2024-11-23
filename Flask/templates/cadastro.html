@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style-cadastro.css') }}">
+    <title>Cadastro</title>
+</head>
+{% endblock %}
+
+{% block body %}
+<body>
+    <div class="container"> 
+        <div class="form-container"> 
+            <h2>Cadastro</h2> 
+            <form> 
+                <div class="form-control"> 
+                    <label for="reg-username">Username</label> 
+                    <input type="text" id="reg-username" required> 
+                </div> 
+                <div class="form-control"> 
+                    <label for="email">E-mail</label> 
+                    <input type="email" id="email" required> 
+                </div> 
+                <div class="form-control"> 
+                    <label for="reg-password">Senha</label> 
+                    <input type="password" id="reg-password" required> 
+                </div> <button type="submit" class="btn">Cadastrar</button> 
+                <a href="{{ url_for('index') }}" class="btn-link">Voltar ao Login</a> 
+            </form> 
+        </div> 
+        <div class="background-container"> 
+            <img src="{{ url_for('static', filename='images/luva.png') }}" alt="Imagem de Fundo">
+        </div>
+    </div>
+</body>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style-login.css') }}">
+    <title>Login</title>
+</head>
+{% endblock %}
+
+{% block body %}
+<body> 
+    <div class="container"> 
+        <div class="form-container"> 
+            <h2>Login</h2> 
+            <form> 
+                <div class="form-control"> 
+                    <label for="username">Username</label>
+                    <input type="text" id="username" required> 
+                </div> 
+                <div class="form-control"> 
+                    <label for="password">Senha</label> 
+                    <input type="password" id="password" required> 
+                </div> 
+                <button type="submit" class="btn">Login</button> 
+                <a href="{{ url_for('cadastro') }}" class="btn-link">Cadastrar</a>
+            </form> 
+        </div> 
+    </div>
+</body>
+{% endblock %}

@@ -1,0 +1,101 @@
+import tkinter as tk
+from tkinter import scrolledtext
+from data_handler import load_data, add_user, add_message, get_messages
+
+# Função para criar a interface gráfica do cliente
+def create_gui():
+
+    window = tk.Tk()
+    window.title("Chat App")
+
+    window.geometry("450x450")
+    
+
+    # Carrega os dados de usuários e mensagens
+    data = load_data()  # Carrega os dados a partir do arquivo data.json
+    print("Dados carregados:", data)  # Verifica se os dados foram carregados corretamente
+
+    def clear_window():
+        for widget in window.winfo_children():
+            widget.pack_forget()
+
+    def cadastro():
+        clear_window()
+        # Adiciona widgets para o login, caixa de texto, botão, etc.
+        window.title("Cadastro")
+
+        username_label = tk.Label(window, text="Nome de Usuário:")
+        username_label.pack()
+
+        username_entry = tk.Entry(window)
+        username_entry.pack()
+
+        email_label = tk.Label(window, text="E-mail:")
+        email_label.pack()
+
+        email_entry = tk.Entry(window)
+        email_entry.pack()
+
+        def cadastro_realizado():
+            username = username_entry.get()
+            email = email_entry.get()
+            add_user(username, email, "hashedpassword")
+            home()
+
+        submit_button = tk.Button(window, text="Cadastrar", font=("Times New Roman", 12), command=cadastro_realizado)
+        submit_button.pack()
+
+    # Função de login para adicionar um novo usuário
+    def login():
+        clear_window()
+        # Adiciona widgets para o login, caixa de texto, botão, etc.
+        window.title("Login")
+
+        username_label = tk.Label(window, text="Nome de Usuário:")
+        username_label.pack()
+
+        username_entry = tk.Entry(window)
+        username_entry.pack()
+
+        email_label = tk.Label(window, text="E-mail:")
+        email_label.pack()
+
+        email_entry = tk.Entry(window)
+        email_entry.pack()
+
+        def cadastro_realizado():
+            username = username_entry.get()
+            email = email_entry.get()
+            add_user(username, email, "hashedpassword")
+            home()
+
+        submit_button = tk.Button(window, text="Cadastrar", font=("Times New Roman", 12), command=cadastro_realizado)
+        submit_button.pack()
+        username = username_entry.get()
+        add_user(username, "user@example.com", "hashedpassword")  # Exemplo de adição de usuário
+        print(f"Usuário {username} adicionado com sucesso!")
+
+    def home():
+        clear_window()
+
+        cadastro_button = tk.Button(window, text="Cadastrar", command=cadastro)
+        cadastro_button.pack()
+    
+        login_button = tk.Button(window, text="Login", command=login)
+        login_button.pack()
+
+    home()
+
+    # Função para enviar mensagem
+    def send_message():
+        message = "Olá, como vai?"
+        add_message(1, 2, message)  # Exemplo de envio de mensagem
+        print(f"Mensagem '{message}' enviada!")
+
+    send_button = tk.Button(window, text="Enviar Mensagem", command=send_message)
+    send_button.pack()
+
+    window.mainloop()
+
+# Inicia a GUI
+create_gui()
