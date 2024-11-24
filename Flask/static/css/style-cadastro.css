@@ -105,3 +105,8 @@ h2 {
     opacity: 0.6;
     filter: blur(2px); /* Opcional, para um efeito mais elegante */
 }
+
+/* Cor para as mensagens de erro (danger) */
+.alert-danger {
+    color: #b82a2a;
+}

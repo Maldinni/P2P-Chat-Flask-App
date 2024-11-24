@@ -1,10 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from sqlalchemy import text
 from werkzeug.security import generate_password_hash, check_password_hash
 from models import db, User
-from datetime import datetime
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '\xa6\xb6\\~*\xb87\xfew\xdd\xe7d`\xcc\xa1=\x17\xc6\xa2]\x9d\xd6\x89\xf6'
@@ -72,10 +70,10 @@ def login():
 
         existing_user = User.query.filter_by(username=submitted_username).first()
         if existing_user and existing_user.check_password(submitted_password):
-            flash('Login successful', 'success')
+            flash('Login successful!', 'success')
             return redirect(url_for("chat"))
         else:
-            flash('Invalid username or password', 'danger')
+            flash('Invalid username or password!', 'danger')
             return redirect(url_for("login"))
 
     return render_template('login.html')

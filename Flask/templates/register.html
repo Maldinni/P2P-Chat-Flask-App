@@ -14,7 +14,7 @@
     <div class="container"> 
         <div class="form-container"> 
             <h2>Cadastro</h2> 
-            <form method="POST" action="{{ url_for('register') }}"> 
+            <form method="POST" action="{{ url_for('register') }}" novalidate> 
                 <div class="form-control"> 
                     <label for="reg-username">Username</label> 
                     <input type="text" id="reg-username" name="username" required> 
@@ -33,7 +33,18 @@
                 </div>
                 <button type="submit" class="btn">Register</button> 
                 <a href="{{ url_for('login') }}" class="btn-link">Back to login</a> 
-            </form> 
+            </form>
+            
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} mt-3" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
         </div> 
         <div class="background-container"> 
             <img src="{{ url_for('static', filename='images/luva.png') }}" alt="Imagem de Fundo">
