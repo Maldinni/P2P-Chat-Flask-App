@@ -24,11 +24,15 @@
                     <input type="email" id="email" name="email" required> 
                 </div> 
                 <div class="form-control"> 
-                    <label for="reg-password">Senha</label> 
+                    <label for="reg-password">Password</label> 
                     <input type="password" id="reg-password" name="password" required> 
                 </div> 
-                <button type="submit" class="btn">Cadastrar</button> 
-                <a href="{{ url_for('login') }}" class="btn-link">Voltar ao Login</a> 
+                <div class="form-control"> 
+                    <label for="dob">Date of Birth (dd-mm-yyyy)</label> 
+                    <input type="date" id="dob" name="dob" required> 
+                </div>
+                <button type="submit" class="btn">Register</button> 
+                <a href="{{ url_for('login') }}" class="btn-link">Back to login</a> 
             </form> 
         </div> 
         <div class="background-container"> 

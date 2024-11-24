@@ -1,7 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from sqlalchemy import text
 from werkzeug.security import generate_password_hash, check_password_hash
 from models import db, User
+from datetime import datetime
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '\xa6\xb6\\~*\xb87\xfew\xdd\xe7d`\xcc\xa1=\x17\xc6\xa2]\x9d\xd6\x89\xf6'
@@ -10,26 +13,43 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
 
-with app.app_context():
-    db.create_all()
+migrate = Migrate(app, db)
 
 @app.route('/')
+#def test_connection():
+    #try:
+        # Executa uma simples consulta para testar a conexão com o banco de dados
+        #result = db.session.execute(text("SELECT 1"))
+        #db.session.commit()  # Confirma a consulta
+
+        # Se a execução ocorrer sem erros, retornará um sucesso
+        #return "Database connection is successful!"
+    #except Exception as e:
+        # Em caso de erro, a exceção será capturada e retornada
+        #db.session.rollback()  # Garante o rollback em caso de erro
+        #return f"Error connecting to the database: {str(e)}"
+
 def home():
     return redirect(url_for('login'))
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        submitted_username = request.form['username']
-        submitted_email = request.form['email']
-        submitted_password = request.form['password']
+        submitted_username = request.form.get('username')
+        submitted_email = request.form.get('email')
+        submitted_password = request.form.get('password')
+        submitted_bday = request.form.get('dob')
+
+        if not submitted_username or not submitted_email or not submitted_password or not submitted_bday:
+            flash('All fields are required.', 'danger')
+            return redirect(url_for('register'))
 
         existing_user = User.query.filter_by(username=submitted_username).first()
         if existing_user:
             flash('This username is already in use. Please try another one.', 'danger')
             return redirect(url_for('register'))
-        
-        new_user = User(username=submitted_username, email=submitted_email)
+
+        new_user = User(username=submitted_username, email=submitted_email, dob=submitted_bday)
         new_user.set_password(submitted_password)
 
         db.session.add(new_user)
@@ -43,8 +63,8 @@ def register():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        submitted_username = request.form['username']
-        submitted_password = request.form['password']
+        submitted_username = request.form.get('username')
+        submitted_password = request.form.get('password')
 
         if not submitted_username or not submitted_password:
             flash("Username and password are required.", "danger")
