@@ -1,0 +1,4 @@
+Test Name,Execution Time (seconds),Status,Timestamp
+test_home_redirect,0.0010004043579101562,passed,2024-11-24 03:29:04
+test_register_missing_fields,0.0009999275207519531,passed,2024-11-24 03:29:04
+test_register_success,0.017004013061523438,passed,2024-11-24 03:29:04
