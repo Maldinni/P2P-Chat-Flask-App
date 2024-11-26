@@ -13,7 +13,7 @@
 <body>
     <div class="container"> 
         <div class="form-container"> 
-            <h2>Cadastro</h2> 
+            <h2>Sign in</h2> 
             <form method="POST" action="{{ url_for('register') }}" novalidate> 
                 <div class="form-control"> 
                     <label for="reg-username">Username</label> 
@@ -26,6 +26,10 @@
                 <div class="form-control"> 
                     <label for="reg-password">Password</label> 
                     <input type="password" id="reg-password" name="password" required> 
+                </div> 
+                <div class="form-control"> 
+                    <label for="reg-password">Confirm your password</label> 
+                    <input type="password" id="reg-password_confirm" name="password_confirm" required> 
                 </div> 
                 <div class="form-control"> 
                     <label for="dob">Date of Birth (dd-mm-yyyy)</label> 

@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from werkzeug.security import generate_password_hash, check_password_hash
 from models import db, User
+from validators import validate_registration
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '\xa6\xb6\\~*\xb87\xfew\xdd\xe7d`\xcc\xa1=\x17\xc6\xa2]\x9d\xd6\x89\xf6'
@@ -36,15 +37,13 @@ def register():
         submitted_username = request.form.get('username')
         submitted_email = request.form.get('email')
         submitted_password = request.form.get('password')
+        submitted_password_confirm = request.form.get('password_confirm')
         submitted_bday = request.form.get('dob')
 
-        if not submitted_username or not submitted_email or not submitted_password or not submitted_bday:
-            flash('All fields are required.', 'danger')
-            return redirect(url_for('register'))
-
-        existing_user = User.query.filter_by(username=submitted_username).first()
-        if existing_user:
-            flash('This username is already in use. Please try another one.', 'danger')
+        errors =(validate_registration(submitted_username, submitted_email, submitted_password, submitted_password_confirm, submitted_bday))
+        if errors:
+            for error in errors:
+                flash(error, "danger")
             return redirect(url_for('register'))
 
         new_user = User(username=submitted_username, email=submitted_email, dob=submitted_bday)
