@@ -13,20 +13,21 @@
 <body> 
     <div class="container"> 
         <div class="form-container"> 
-            <h2>Login</h2> 
+            <h2>Log in</h2> 
             <form action="{{ url_for('login') }}" method="POST" novalidate> 
                 <div class="form-control"> 
                     <label for="username">Username</label>
                     <input type="text" id="username" name="username" required> 
                 </div> 
                 <div class="form-control"> 
-                    <label for="password">Senha</label> 
+                    <label for="password">Password</label> 
                     <input type="password" id="password" name="password" required> 
                 </div> 
-                <button type="submit" class="btn">Login</button> 
-                <a href="{{ url_for('register') }}" class="btn-link">Cadastrar</a>
+                <button type="submit" class="btn">Log in</button> 
+                <a href="{{ url_for('register') }}" class="btn-link">Sign in</a>
             </form> 
-
+            <!--This block handles displaying flash messages from the backend. We pull in all flashed messages with their categories like 'success' or 'error').
+            If there are messages, we loop through them and render each in a Bootstrap alert box. The alert style is dynamically set based on the message category (e.g., alert-success). -->
             {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                     {% for category, message in messages %}

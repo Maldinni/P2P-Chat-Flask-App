@@ -38,7 +38,8 @@
                 <button type="submit" class="btn">Register</button> 
                 <a href="{{ url_for('login') }}" class="btn-link">Back to login</a> 
             </form>
-            
+            <!--This block handles displaying flash messages from the backend. We pull in all flashed messages with their categories like 'success' or 'error').
+            If there are messages, we loop through them and render each in a Bootstrap alert box. The alert style is dynamically set based on the message category (e.g., alert-success). -->
             {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
                     {% for category, message in messages %}
