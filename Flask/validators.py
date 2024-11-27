@@ -3,10 +3,10 @@ from models import User
 from datetime import datetime
 import re
 
-def blank_fields(username, email, password, password_confirmation, bday): #added elif's to this block cuz i thought i would be a better UX if one error appears per try
+def blank_fields_registration(username, email, password, password_confirmation, bday): #added elif's to this block cuz i thought i would be a better UX if one error appears per try
     errors = []
     if not username:
-        errors.append("The username field cannot be empty.")
+        errors.append("The username field cannot be empty.") #errors.append will be used when the function got a list of errors to save
     elif not email:
         errors.append("The email field cannot be empty.")
     elif not password:
@@ -75,7 +75,7 @@ def validade_age(submitted_bday):
 def validate_registration(username, email, password, password_confirm, bday):
     errors = []
     # executes first the blank spaces validation cuz if its blanks theres no reason to continue to others, besides it would print the same error twice on the user's screen
-    errors.extend(blank_fields(username, email, password, password_confirm, bday))
+    errors.extend(blank_fields_registration(username, email, password, password_confirm, bday))
                   
     if not errors:
         errors.extend(existing_user(username))
@@ -87,3 +87,32 @@ def validate_registration(username, email, password, password_confirm, bday):
 
     return errors
 
+def blank_fields_login(username, password): #added elif's to this block cuz i thought i would be a better UX if one error appears per try
+    errors = []
+    if not username:
+        errors.append("The username field cannot be empty.")
+    elif not password:
+        errors.append("The password field cannot be empty.")
+    return errors
+
+def null_username(submitted_username):
+    inexistent_username = User.query.filter_by(username=submitted_username).first()
+    if not inexistent_username:
+        return ["This username isn't registered."]
+    return []
+
+def wrong_credentials(submitted_username, submitted_password):
+    username = User.query.filter_by(username=submitted_username).first()
+    if username and not username.check_password(submitted_password):
+        return["Invalid password!"]    
+    return[]
+
+def validate_login(username, password):
+    errors = []
+    errors.extend(blank_fields_login(username, password))
+
+    if not errors:
+        errors.extend(null_username(username))
+        errors.extend(wrong_credentials(username, password))
+
+    return errors
