@@ -3,7 +3,7 @@ from models import User
 from datetime import datetime
 import re
 
-def blank_fields(username, email, password, password_confirmation, bday):
+def blank_fields(username, email, password, password_confirmation, bday): #added elif's to this block cuz i thought i would be a better UX if one error appears per try
     errors = []
     if not username:
         errors.append("The username field cannot be empty.")
@@ -40,6 +40,24 @@ def existing_email(submitted_email):
         return ["This email is already registered. Please try another one."]
     return []
 
+def validate_password(password):
+    errors = []
+    #Simple password validation but it requires better UI in frontend (Future task)
+    if len(password) < 8:
+        errors.append("The password must be at least 8 characters long.")
+    if not re.search(r'[A-Z]', password):
+        errors.append("The password must contain at least one uppercase letter.")
+    if not re.search(r'[a-z]', password):
+        errors.append("The password must contain at least one lowercase letter.")
+    if not re.search(r'[0-9]', password):
+        errors.append("The password must contain at least one number.")
+    if not re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
+        errors.append("The password must contain at least one special character.")
+    if re.search(r'\s', password):
+        errors.append("The password cannot contain spaces.")
+    
+    return errors
+
 def validade_age(submitted_bday):
     try:
         date_string = datetime.strptime(submitted_bday, "%Y-%m-%d") # takes the datetime object from the given string
@@ -64,6 +82,7 @@ def validate_registration(username, email, password, password_confirm, bday):
         errors.extend(password_confirmation(password_confirm, password))
         errors.extend(validate_email(email))
         errors.extend(existing_email(email))
+        errors.extend(validate_password(password))
         errors.extend(validade_age(bday))
 
     return errors
