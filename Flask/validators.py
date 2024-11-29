@@ -20,30 +20,30 @@ def blank_fields_registration(username, email, password, password_confirmation, 
 def existing_user(submitted_username):
     used_username = User.query.filter_by(username=submitted_username).first()
     if used_username:
-        return ["This username is already in use. Please try another one."]
+        return ["This username is already taken. Please choose another one."]
     return []
 
 def password_confirmation(password_confirm, password):
     if password_confirm != password:
-        return ["The passwords are not equal."]
+        return ["The passwords do not match."]
     return []
 
 def validate_email(email):
     email_regex = r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$'
     if not re.match(email_regex, email):
-        return ["The email address is not valid."]
+        return ["The email address provided is invalid."]
     return []
 
 def existing_email(submitted_email):
     used_email = User.query.filter_by(email=submitted_email).first()
     if used_email:
-        return ["This email is already registered. Please try another one."]
+        return ["This email is already in use. Please choose another one."]
     return []
 
 def validate_password(password):
     errors = []
-    #Simple password validation but it requires better UI in frontend (Future task)
-    if len(password) < 8:
+    #Simple password validation but it requires better UI in frontend (Future task) 
+    if len(password) < 8: # This will be transfered to the frontend in the future and this code will return "Password must meet the security requirements" for when its submitted to server.
         errors.append("The password must be at least 8 characters long.")
     if not re.search(r'[A-Z]', password):
         errors.append("The password must contain at least one uppercase letter.")
@@ -68,7 +68,7 @@ def validade_age(submitted_bday):
         if age < 13:
             return ["You must be at least 13 years old to register."]
     except ValueError:
-        return ["The date of birth is not in a valid format (DD-MM-YYYY)."]
+        return ["The date of birth is not valid. Please ensure it is in the correct format (YYYY-MM-DD)."]
     #print(date_string)
     return []
 
@@ -98,13 +98,13 @@ def blank_fields_login(username, password): #added elif's to this block cuz i th
 def null_username(submitted_username):
     inexistent_username = User.query.filter_by(username=submitted_username).first()
     if not inexistent_username:
-        return ["This username isn't registered."]
+        return ["This username is not recognized."]
     return []
 
 def wrong_credentials(submitted_username, submitted_password):
     username = User.query.filter_by(username=submitted_username).first()
     if username and not username.check_password(submitted_password):
-        return["Invalid password!"]    
+        return["The username or password you entered is incorrect."]    
     return[]
 
 def validate_login(username, password):
