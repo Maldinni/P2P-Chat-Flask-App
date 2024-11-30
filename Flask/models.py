@@ -14,7 +14,8 @@ class User(db.Model):
     dob = db.Column(db.Date, nullable=False)
 
     def set_password(self, password):
-        self.password_hash = generate_password_hash(password)
+        #Changed to a better hashing and increased the iterations to improve the encryption
+        self.password_hash = generate_password_hash(password, method='pbkdf2:sha256', salt_length=16, iterations=100000)
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
