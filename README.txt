@@ -28,3 +28,6 @@ entre eux. Avec Flask et Socket.IO, l’app crée un espace interactif et cool p
 C’est une excellente manière de découvrir comment Flask peut être utilisé pour créer une app 
 de chat moderne et en temps réel. Parfait pour ceux qui veulent créer un système de chat 
 simple et efficace.
+
+
+Currently paused. New features and bug fixes soon.
